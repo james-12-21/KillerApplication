@@ -8,7 +8,7 @@ namespace KillerApp
         static void Main(string[] args)
         {
             var ballsOnTable = new List<Ball>() {
-                    new Ball(1, "Yellow", false)    { BallId = 1 , BallColour = "Yellow" , BallPotted = true }
+                    new Ball(1, "Yellow", false)    { BallId = 1 , BallColour = "Yellow" , BallPotted = false }
                 ,   new Ball(2, "Blue", false)      { BallId = 2 , BallColour = "Blue", BallPotted = false}
                 ,   new Ball(3, "Red", false)       { BallId = 3 , BallColour = "Red" , BallPotted = false}
                 ,   new Ball(4, "Purple", false)    { BallId = 4 , BallColour = "Purple", BallPotted = false}
