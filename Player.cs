@@ -4,38 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LearningCSharp
+namespace KillerApp
 {
     public class Player
     {
-        int id = 0;
-        string name = "name";
-        private bool isAlive;
+        int PlayerId { get; set; }
+        string PlayerName { get; set; }
+        int PlayersLives { get; set; }
 
-        public Player(int id, string name)
-        {
-            this.id = id;
-            this.name = name;
-        }
-
-        public int PlayerId
-        {
-            get { return id; }
-            set { id = value; }
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public bool IsAlive
-        { 
-            get { return isAlive; } 
-            set { isAlive = value; }
-        }
-        
     }
 }
-

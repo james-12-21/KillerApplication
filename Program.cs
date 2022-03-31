@@ -1,50 +1,54 @@
 ﻿using System;
 
-namespace LearningCSharp
+namespace KillerApp
 {
     class Program
     {
-        Player player1 = new Player(1, "James");
-        Player player2 = new Player(2, "Pete");
-        Player player3 = new Player(3, "Alistair");
-        Player player4 = new Player(4, "Kieran");
-        Player player5 = new Player(5, "Sean");
-        Player player6 = new Player(6, "Matt");
-
-        public Ball yellow = new Ball(1, false, "Yellow", 1);
-
-        public Ball yellowStripe = new Ball(9, false, "Yellow", 1);
-
-        public Ball blue = new Ball(2, false, "Blue", 1);
-
-        public Ball blueStripe = new Ball(10, false, "Blue", 1);
-
-        public Ball red = new Ball(3, false, "Red", 1);
-
-        public Ball redStripe = new Ball(11, false, "Red", 1);
-
-        public Ball purple = new Ball(4, false, "Purple", 1);
-
-        public Ball purpleStripe = new Ball(12, false, "Purple", 1);
-
-        public Ball orange = new Ball(5, false, "Orange", 1);
-
-        public Ball orangeStripe = new Ball(13, false, "Orange", 1);
-
-        public Ball green = new Ball(6, false, "Green", 1);
-
-        public Ball greenStripe = new Ball(14, false, "Green", 1);
-
-        public Ball brown = new Ball(7, false, "Brown", 1);
-
-        public Ball brownStripe = new Ball(15, false, "Brown", 1);
-
-        public Ball black = new Ball(8, false, "Black", 1);
 
         static void Main(string[] args)
         {
+            var ballsOnTable = new List<Ball>() {
+                    new Ball(1, "Yellow", false)    { BallId = 1 , BallColour = "Yellow" , BallPotted = true }
+                ,   new Ball(2, "Blue", false)      { BallId = 2 , BallColour = "Blue", BallPotted = false}
+                ,   new Ball(3, "Red", false)       { BallId = 3 , BallColour = "Red" , BallPotted = false}
+                ,   new Ball(4, "Purple", false)    { BallId = 4 , BallColour = "Purple", BallPotted = false}
+                ,   new Ball(5, "Orange", false)    { BallId = 5 , BallColour = "Orange", BallPotted = false}
+                ,   new Ball(6, "Green", false)     { BallId = 6 , BallColour = "Green", BallPotted = false}
+                ,   new Ball(7, "Brown", false)     { BallId = 7 , BallColour = "Brown", BallPotted = false}
+                ,   new Ball(8, "Black", false)     { BallId = 8 , BallColour = "Black", BallPotted = false}
+                ,   new Ball(9, "Yellow", false)    { BallId = 9 , BallColour = "Yellow", BallPotted = false}
+                ,   new Ball(10, "Blue", false)     { BallId = 10 , BallColour = "Blue", BallPotted = false}
+                ,   new Ball(11, "Red", false)      { BallId = 11 , BallColour = "Red", BallPotted = false}
+                ,   new Ball(12, "Purple", false)   { BallId = 12 , BallColour = "Purple", BallPotted = false}
+                ,   new Ball(13, "Orange", false)   { BallId = 13 , BallColour = "Orange", BallPotted = false}
+                ,   new Ball(14, "Green", false)    { BallId = 14 , BallColour = "Green", BallPotted = false}
+                ,   new Ball(15, "Brown", false)    { BallId = 15 , BallColour = "Brown", BallPotted = false}
+            };
+
+            Console.WriteLine("Enter ball number: ");
+            int ballId = Convert.ToInt32(Console.ReadLine());
+            BallPotted(ballId, ballsOnTable);
+
+            static void BallPotted(int ballId, List<Ball> ballsOnTable)
+            {
+                if(ballsOnTable.Count == 0)
+                {
+                    Console.WriteLine("Error: variable ballsOnTable is empty");
+                }
+                else if (ballsOnTable.Count > 15)
+                {
+                    Console.WriteLine("Error: variable ballsOnTable has too many balls in it");
+                }
+                else if (ballsOnTable[ballId - 1].BallPotted)
+                {
+                    Console.WriteLine($"Ball {ballId} has already been potted");
+                }
+                else
+                {
+                    ballsOnTable[ballId - 1].BallPotted = true;
+                }
+            }
             
-            Console.WriteLine();
         }
 
    
