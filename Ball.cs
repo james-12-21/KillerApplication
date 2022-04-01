@@ -15,6 +15,7 @@ namespace KillerApp
         public Ball(int ballId, bool ballPotted)
         {
             this.BallId = ballId;
+            this.BallColour = "White";
             this.BallPotted = ballPotted;
         }
 

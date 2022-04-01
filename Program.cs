@@ -25,30 +25,91 @@ namespace KillerApp
                 ,   new Ball(15, "Brown", false)    { BallId = 15 , BallColour = "Brown", BallPotted = false}
             };
 
-            Console.WriteLine("Enter ball number: ");
-            int ballId = Convert.ToInt32(Console.ReadLine());
-            BallPotted(ballId, ballsOnTable);
-
-            static void BallPotted(int ballId, List<Ball> ballsOnTable)
+            var selectedPlayers = new List<Player>()
             {
-                if(ballsOnTable.Count == 0)
+                    new Player(1,"James B", 4) {PlayerId = 1, PlayerName = "James B", PlayerLives = 4}
+                ,   new Player(2,"Pete", 4) {PlayerId = 2, PlayerName = "Pete", PlayerLives = 4}
+                ,   new Player(3,"Caz", 4) {PlayerId = 3, PlayerName = "Caz", PlayerLives = 4}
+                ,   new Player(4,"Matthew", 4) {PlayerId = 4, PlayerName = "Matthew", PlayerLives = 4}
+                ,   new Player(5,"Kieran", 4) {PlayerId = 5, PlayerName = "Kieran", PlayerLives = 4}
+                ,   new Player(6,"James D", 4) {PlayerId = 6, PlayerName = "James D", PlayerLives = 4}
+            };
+
+            int alivePlayers = 0;
+
+            if (selectedPlayers.Count <= 0)
+            {
+                Console.WriteLine("There are no players selected!!! Please enter a minimum of 6 players");
+            }
+            else if (selectedPlayers.Count > 0 && selectedPlayers.Count < 6)
+            {
+                Console.WriteLine("There are not enough players for a valid game!!!");
+                Console.WriteLine("Try another game like see-saw, 9-ball or Accumulation Stations");
+            }
+            else
+            {
+                for (int i = 0; i < selectedPlayers.Count; i++)
                 {
-                    Console.WriteLine("Error: variable ballsOnTable is empty");
+                    if (selectedPlayers[i].PlayerLives > 0)
+                    {
+                        alivePlayers++;
+                    }
+
                 }
-                else if (ballsOnTable.Count > 15)
+
+            }
+
+            while (alivePlayers > 1)
+            {
+                int playerTurnCounter = 0;
+                Console.Write($"{selectedPlayers[playerTurnCounter].PlayerName} " +
+                    $"has {selectedPlayers[playerTurnCounter].PlayerLives} lives remaining. "
+                    + $"{selectedPlayers[playerTurnCounter].PlayerName} to play");
+                Console.WriteLine("Press y if ball potted, any other key for a missed shot");
+                string ballPottedChecker = Console.ReadLine();
+                NextShot(ballPottedChecker, selectedPlayers, playerTurnCounter);
+                Console.WriteLine("Enter number of the ball potted: "); 
+                int ballId = Convert.ToInt32(Console.ReadLine());
+                BallPotted(ballId, ballsOnTable);
+
+                static void NextShot(string ballPottedChecker, List<Player> selectedPlayers, int playerTurnCounter)
                 {
-                    Console.WriteLine("Error: variable ballsOnTable has too many balls in it");
+                    if (ballPottedChecker == "y")
+                    {
+                        playerTurnCounter++;
+                        return;
+                    }
+                    else
+                    {
+                        selectedPlayers[playerTurnCounter].PlayerLives--;
+                    }
                 }
-                else if (ballsOnTable[ballId - 1].BallPotted)
+            
+                static void BallPotted(int ballId, List<Ball> ballsOnTable)
                 {
-                    Console.WriteLine($"Ball {ballId} has already been potted");
-                }
-                else
-                {
-                    ballsOnTable[ballId - 1].BallPotted = true;
+                    if (ballsOnTable.Count == 0)
+                    {
+                        Console.WriteLine("Error: variable ballsOnTable is empty");
+                    }
+                    else if (ballsOnTable.Count > 15)
+                    {
+                        Console.WriteLine("Error: variable ballsOnTable has too many balls in it");
+                    }
+                    else if (ballsOnTable[ballId - 1].BallPotted)
+                    {
+                        Console.WriteLine($"Ball {ballId} has already been potted");
+                    }
+                    else if(ballId < 1 || ballId > 15)
+                    {
+                        Console.WriteLine("Please enter a valid ball number");
+                    }
+                    else
+                    {
+                        ballsOnTable[ballId - 1].BallPotted = true;
+                    }
                 }
             }
-            
+                
         }
 
    

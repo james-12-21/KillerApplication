@@ -8,9 +8,21 @@ namespace KillerApp
 {
     public class Player
     {
-        int PlayerId { get; set; }
-        string PlayerName { get; set; }
-        int PlayersLives { get; set; }
+        public int PlayerId { get; set; }
+        public string PlayerName { get; set; }
+        public int PlayerLives { get; set; }
 
+        public Player(int playerId, string playerName)
+        {
+            this.PlayerId = playerId;
+            this.PlayerName = playerName;
+        }
+        public Player(int playerId, string playerName, int playerLives)
+        {
+            this.PlayerId = playerId;
+            this.PlayerName = playerName;
+            this.PlayerLives = playerLives;
+        }
+        
     }
 }
