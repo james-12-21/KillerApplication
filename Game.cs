@@ -11,5 +11,12 @@ namespace KillerApp
         public int ballsRemaining { get; set; }
         public int playersAlive { get; set; }
         private bool gameActive { get; set; }
+        public Game() 
+        {
+
+        }
+
+
+
     }
 }

@@ -37,50 +37,18 @@ namespace KillerApp
             var player = new Player();
             var ball = new Ball();
 
-            int alivePlayers = 0;
-
-            if (selectedPlayers.Count <= 0)
-            {
-                Console.WriteLine("There are no players selected!!! Please enter a minimum of 6 players");
-            }
-            else if (selectedPlayers.Count > 0 && selectedPlayers.Count < 6)
-            {
-                Console.WriteLine("There are not enough players for a valid game!!!");
-                Console.WriteLine("Try another game like see-saw, 9-ball or Accumulation Stations");
-            }
-            else
-            {
-                for (int i = 0; i < selectedPlayers.Count; i++)
-                {
-                    if (selectedPlayers[i].PlayerLives > 0)
-                    {
-                        alivePlayers++;
-                    }
-
-                }
-
-            }
-
-            
             for (int j = 0; j < selectedPlayers.Count; j++)
             {
                 selectedPlayers[j].PlayerTurn = true;
-                Console.WriteLine(selectedPlayers[j].PlayerName);
-                Console.WriteLine();
-                Console.WriteLine(selectedPlayers[j].PlayerLives);
-                Console.WriteLine();
-                Console.WriteLine(selectedPlayers[j + 1].PlayerName);
-                Console.WriteLine();
-                Console.WriteLine(selectedPlayers[j + 1].PlayerLives);
                 int playerId = Player.NextPlayerTurn(selectedPlayers[j]);
                 if(player.CheckPlayerIsAlive(selectedPlayers[j].PlayerId, selectedPlayers[j]))
                 {
                     int ballId = ball.GetBallId();
-                    ball.VanillaBallPotted(selectedPlayers[playerId], ballsOnTable[ballId], ballsOnTable[ballId].BallPotted, selectedPlayers[j].PlayerId);
+                    ball.VanillaBallPotted(selectedPlayers[j], ballsOnTable[ballId], ballsOnTable[ballId].BallPotted, selectedPlayers[j].PlayerId);
                 }
             }
-            
-                
+
+
         }
 
    
