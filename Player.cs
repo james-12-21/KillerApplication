@@ -14,6 +14,8 @@ namespace KillerApp
         public bool PlayerTurn { get; set; }
         public int NumberOfBallsToPot { get; set; }
 
+        public List<Player> PlayerList { get; set;}
+
         public Player()
         {
 

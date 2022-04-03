@@ -32,7 +32,7 @@ namespace KillerApp
 
         public int GetBallId()
         {
-            Console.WriteLine("Enter the number of the ball potted");
+            Console.WriteLine("Enter the number of the ball potted ");
             int ballId = Convert.ToInt32(Console.ReadLine());
             return ballId;
         }
@@ -51,8 +51,7 @@ namespace KillerApp
                 }
                 else
                 {
-                    Console.WriteLine("Enter the number of the ball potted ");
-                    Console.ReadLine();
+                    GetBallId();
                     player.PlayerTurn = false;
                     return true;
                 }

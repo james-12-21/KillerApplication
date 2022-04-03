@@ -27,30 +27,84 @@ namespace KillerApp
 
             var selectedPlayers = new List<Player>()
             {
-                    new Player(1,"James B", 4)  {PlayerId = 1, PlayerName = "James B"   , PlayerLives = 4}
-                ,   new Player(2,"Pete", 4)     {PlayerId = 2, PlayerName = "Pete"      , PlayerLives = 4}
-                ,   new Player(3,"Caz", 4)      {PlayerId = 3, PlayerName = "Caz"       , PlayerLives = 4}
-                ,   new Player(4,"Matthew", 4)  {PlayerId = 4, PlayerName = "Matthew"   , PlayerLives = 4}
-                ,   new Player(5,"Kieran", 4)   {PlayerId = 5, PlayerName = "Kieran"    , PlayerLives = 4}
-                ,   new Player(6,"James D", 4)  {PlayerId = 6, PlayerName = "James D"   , PlayerLives = 4}
+                    new Player(1,"James B", 4)  {PlayerId = 1, PlayerName = "James B"   , PlayerLives = 1}
+                ,   new Player(2,"Pete", 4)     {PlayerId = 2, PlayerName = "Pete"      , PlayerLives = 1}
+                ,   new Player(3,"Caz", 4)      {PlayerId = 3, PlayerName = "Caz"       , PlayerLives = 1}
+                ,   new Player(4,"Matthew", 4)  {PlayerId = 4, PlayerName = "Matthew"   , PlayerLives = 1}
+                ,   new Player(5,"Kieran", 4)   {PlayerId = 5, PlayerName = "Kieran"    , PlayerLives = 1}
+                ,   new Player(6,"James D", 4)  {PlayerId = 6, PlayerName = "James D"   , PlayerLives = 1}
             };
             var player = new Player();
             var ball = new Ball();
+            var game = new Game();
+            var result = new List<Player>();
+
 
             for (int j = 0; j < selectedPlayers.Count; j++)
             {
+
                 selectedPlayers[j].PlayerTurn = true;
-                int playerId = Player.NextPlayerTurn(selectedPlayers[j]);
-                if(player.CheckPlayerIsAlive(selectedPlayers[j].PlayerId, selectedPlayers[j]))
+                Console.WriteLine(selectedPlayers[j].PlayerName);
+                Console.WriteLine(selectedPlayers[j].PlayerLives);
+                Player.NextPlayerTurn(selectedPlayers[j]);
+
+                if (player.CheckPlayerIsAlive(selectedPlayers[j].PlayerId, selectedPlayers[j]))
                 {
-                    int ballId = ball.GetBallId();
+                    int ballId = 0;
+
                     ball.VanillaBallPotted(selectedPlayers[j], ballsOnTable[ballId], ballsOnTable[ballId].BallPotted, selectedPlayers[j].PlayerId);
                 }
+
+                if (selectedPlayers[j].PlayerLives == 0)
+                {
+                    result.Add(selectedPlayers[j]);
+                    selectedPlayers.RemoveAt(j);
+                    j--;
+                }
+
+                game.BallsOnTable(ballsOnTable);
+                
+                if (game.ActiveGameChecker(selectedPlayers))
+                {
+                    if (j == selectedPlayers.Count - 1)
+                    {
+                        j = -1;
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+                    if(j == 0 && selectedPlayers.Count == 1)
+                    {
+                        
+                    }
+                    else if (j == selectedPlayers.Count - 1)
+                    { 
+                        j--;
+                    }
+                    else
+                    {
+                        j++;
+                    }
+
+                    result.Add(selectedPlayers[j]);
+
+                    for (int n = 0; n < result.Count; n++)
+                    {
+                        Console.WriteLine($"{result[n].PlayerName} finished {result.Count - n}");
+                    }
+
+                    goto GameOver;
+                }
+                
             }
 
+        GameOver: Console.WriteLine($"The game has ended! {result[result.Count - 1].PlayerName} wins!");
 
+        
         }
-
-   
     }
 }
