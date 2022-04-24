@@ -23,6 +23,7 @@ namespace KillerApp
                 ,   new Ball(13, "Orange", 'n')   { BallId = 13 , BallColour = "Orange", BallPotted = 'n'}
                 ,   new Ball(14, "Green", 'n')    { BallId = 14 , BallColour = "Green", BallPotted = 'n'}
                 ,   new Ball(15, "Brown", 'n')    { BallId = 15 , BallColour = "Brown", BallPotted = 'n'}
+                ,   new Ball(16, "White", 'n')    { BallId = 16 , BallColour = "White", BallPotted = 'n'}
             };
 
             var selectedPlayers = new List<Player>()
@@ -49,42 +50,42 @@ namespace KillerApp
                 {
                     if (player.CheckPlayerIsAlive(selectedPlayers[j].PlayerId, selectedPlayers[j]))
                     {
-                        char ballPotted = 'n';
                         Console.WriteLine("Press 'y' if a ball is successfully potted, 'n' for a missed shot");
-                        ballPotted = Convert.ToChar(Console.ReadLine());
-                        int ballId = ball.GetBallId();
+                        char ballPotted = Convert.ToChar(Console.ReadLine());
+                        int ballId = ball.GetBallId(ballPotted);
 
-                        try
+                        
+                        
+                        if (ballId == 1)
                         {
-                            if (ballId == 1)
-                            {
-                                ball.OneBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
-                            }
-                            else if (ballId == 2)
-                            {
-                                ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
-                            }
-                            else if (ballId == 8)
-                            {
-                                ball.EightBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
-                            }
-                            else if (ballId == 9)
-                            {
-                                ball.NineBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
-                            }
-                            else if (ballId == 13)
-                            {
-                                ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
-                            }
-                            else if (ballId > 0 && ballId < 16)
-                            {
-                                ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
-                            }
+                            Ball.OneBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
                         }
-                        catch (Exception)
+                        else if (ballId == 2)
                         {
-                            throw;
+                            Ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
                         }
+                        else if (ballId == 8)
+                        {
+                            Ball.EightBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                        }
+                        else if (ballId == 9)
+                        {
+                            Ball.NineBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                        }
+                        else if (ballId == 13)
+                        {
+                            Ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                        }
+                        else if (ballId == 16)
+                        {
+                            Ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                        }
+                        else if (0 < ballId && ballId < 16 && ballId != 1 && ballId != 2 && ballId != 8 && ballId != 9 && ballId != 13)
+                        {
+                            Ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                        }
+                        
+
 
                     }
                 }
