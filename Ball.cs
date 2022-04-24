@@ -37,23 +37,94 @@ namespace KillerApp
             return ballId;
         }
 
-        public bool VanillaBallPotted(Player player, Ball ballId, char ballPotted, int playerId)
+        public void VanillaBallPotted(List<Player> player, Ball ballId, char ballPotted, int activePlayerIndex)
         {
-            Console.WriteLine("Press 'y' if a ball is successfully potted, 'n' for a missed shot");
-            ballPotted = Convert.ToChar(Console.ReadLine());
+            
             try
             {
                 if (ballPotted == 'n')
                 {
-                    player.PlayerLives--;
-                    player.PlayerTurn = false;
-                    return false;
+                    player[activePlayerIndex].PlayerLives--;
+                    player[activePlayerIndex].PlayerTurn = false;
+                    player[activePlayerIndex + 1].PlayerTurn = true;
                 }
                 else
                 {
-                    GetBallId();
-                    player.PlayerTurn = false;
-                    return true;
+                    player[activePlayerIndex].PlayerTurn = false;
+                    player[activePlayerIndex + 1].PlayerTurn = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        public void OneBallPotted(List<Player> player, Ball ballId, char ballPotted, int activePlayerIndex)
+        {
+
+            try
+            {
+                if (ballPotted == 'n')
+                {
+                    player[activePlayerIndex].PlayerLives--;
+                    player[activePlayerIndex].PlayerTurn = false;
+                    player[activePlayerIndex + 1].PlayerTurn = true;
+                }
+                else
+                {
+                    player[activePlayerIndex].PlayerTurn = false;
+                    player[activePlayerIndex + 1].PlayerTurn = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        public void EightBallPotted(List<Player> player, Ball ballId, char ballPotted, int activePlayerIndex)
+        {
+
+            try
+            {
+                if (ballPotted == 'n')
+                {
+                    player[activePlayerIndex].PlayerLives--;
+                    player[activePlayerIndex].PlayerTurn = false;
+                    player[activePlayerIndex + 1].PlayerTurn = true;
+                }
+                else
+                {
+                    player[activePlayerIndex].PlayerTurn = false;
+                    player.Reverse();
+                    player[activePlayerIndex + 1].PlayerTurn = true;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        public void NineBallPotted(List<Player> player, Ball ballId, char ballPotted, int activePlayerIndex)
+        {
+
+            try
+            {
+                if (ballPotted == 'n')
+                {
+                    player[activePlayerIndex].PlayerLives--;
+                    player[activePlayerIndex].PlayerTurn = false;
+                    player[activePlayerIndex + 1].PlayerTurn = true;
+                }
+                else
+                {
+                    player[activePlayerIndex].PlayerTurn = false;
+                    player[(activePlayerIndex + 1)].PlayerTurn = true;
                 }
             }
             catch (Exception)

@@ -27,32 +27,70 @@ namespace KillerApp
 
             var selectedPlayers = new List<Player>()
             {
-                    new Player(1,"James B", 4)  {PlayerId = 1, PlayerName = "James B"   , PlayerLives = 1}
-                ,   new Player(2,"Pete", 4)     {PlayerId = 2, PlayerName = "Pete"      , PlayerLives = 1}
-                ,   new Player(3,"Caz", 4)      {PlayerId = 3, PlayerName = "Caz"       , PlayerLives = 1}
-                ,   new Player(4,"Matthew", 4)  {PlayerId = 4, PlayerName = "Matthew"   , PlayerLives = 1}
-                ,   new Player(5,"Kieran", 4)   {PlayerId = 5, PlayerName = "Kieran"    , PlayerLives = 1}
-                ,   new Player(6,"James D", 4)  {PlayerId = 6, PlayerName = "James D"   , PlayerLives = 1}
+                    new Player(1,"James B", 4)  {PlayerId = 1, PlayerName = "James B"   , PlayerLives = 4}
+                ,   new Player(2,"Pete", 4)     {PlayerId = 2, PlayerName = "Pete"      , PlayerLives = 4}
+                ,   new Player(3,"Caz", 4)      {PlayerId = 3, PlayerName = "Caz"       , PlayerLives = 4}
+                ,   new Player(4,"Matthew", 4)  {PlayerId = 4, PlayerName = "Matthew"   , PlayerLives = 4}
+                ,   new Player(5,"Kieran", 4)   {PlayerId = 5, PlayerName = "Kieran"    , PlayerLives = 4}
+                ,   new Player(6,"James D", 4)  {PlayerId = 6, PlayerName = "James D"   , PlayerLives = 4}
             };
             var player = new Player();
             var ball = new Ball();
             var game = new Game();
             var result = new List<Player>();
 
-
+            selectedPlayers[0].PlayerTurn = true;
             for (int j = 0; j < selectedPlayers.Count; j++)
             {
-
-                selectedPlayers[j].PlayerTurn = true;
                 Console.WriteLine(selectedPlayers[j].PlayerName);
                 Console.WriteLine(selectedPlayers[j].PlayerLives);
                 Player.NextPlayerTurn(selectedPlayers[j]);
-
-                if (player.CheckPlayerIsAlive(selectedPlayers[j].PlayerId, selectedPlayers[j]))
+                if (selectedPlayers[j].PlayerTurn)
                 {
-                    int ballId = 0;
+                    if (player.CheckPlayerIsAlive(selectedPlayers[j].PlayerId, selectedPlayers[j]))
+                    {
+                        char ballPotted = 'n';
+                        Console.WriteLine("Press 'y' if a ball is successfully potted, 'n' for a missed shot");
+                        ballPotted = Convert.ToChar(Console.ReadLine());
+                        int ballId = ball.GetBallId();
 
-                    ball.VanillaBallPotted(selectedPlayers[j], ballsOnTable[ballId], ballsOnTable[ballId].BallPotted, selectedPlayers[j].PlayerId);
+                        try
+                        {
+                            if (ballId == 1)
+                            {
+                                ball.OneBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                            }
+                            else if (ballId == 2)
+                            {
+                                ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                            }
+                            else if (ballId == 8)
+                            {
+                                ball.EightBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                            }
+                            else if (ballId == 9)
+                            {
+                                ball.NineBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                            }
+                            else if (ballId == 13)
+                            {
+                                ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                            }
+                            else if (ballId > 0 && ballId < 16)
+                            {
+                                ball.VanillaBallPotted(selectedPlayers, ballsOnTable[ballId], ballPotted, selectedPlayers[j].PlayerId);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            throw;
+                        }
+
+                    }
+                }
+                else
+                {
+
                 }
 
                 if (selectedPlayers[j].PlayerLives == 0)
