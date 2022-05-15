@@ -8,11 +8,13 @@ namespace KillerApp
 {
     public class Player
     {
-        public int PlayerId { get; set; }
-        public string PlayerName { get; set; }
-        public int PlayerLives { get; set; }
-        public bool PlayerTurn { get; set; }
-        public int NumberOfBallsToPot { get; set; }
+        internal int PlayerId { get; set; }
+        internal string PlayerName { get; set; }
+        internal int PlayerLives { get; set; }
+        internal bool PlayerTurn { get; set; }
+        internal int NumberOfBallsToPot { get; set; }
+        internal bool PlayerFruits { get; set; }
+        internal string ColourOfFruit { get; set; }
 
         public List<Player> PlayerList { get; set;}
 
@@ -36,27 +38,34 @@ namespace KillerApp
             this.PlayerTurn = false;
         }
         
-        public static int NextPlayerTurn(Player player)
+        public bool IsPlayerTurn(List<Player> players, int playerIndex)
         {
-            if (player.PlayerTurn)
+            if (players[playerIndex].PlayerTurn)
             {
-                return player.PlayerId;
+                return true;
             }
             else
             {
-                return -1;
+                return false;
             }
         }
-        public bool CheckPlayerIsAlive(int playerId, Player player)
+        public bool CheckPlayerIsAlive(List<Player> players, int playerIndex)
         {
-            int playersLives = player.PlayerLives;
-            if(playersLives == 0)
+            if (players[playerIndex].PlayerLives == 0)
             {
                 return false;
             }
             else
             {
                 return true;
+            }
+        }
+
+        public void AddPlayerToResultList(List<Player> players, int playerIndex, List<Player> result)
+        {
+            if(!CheckPlayerIsAlive(players, playerIndex))
+            {
+                result.Add(players[playerIndex]);
             }
         }
     }

@@ -8,105 +8,80 @@ namespace KillerApp
 {
     public class Ball
     {
-        public int BallId { get; set; }
-        public string BallColour { get; set; }
-        public char BallPotted { get; set; }
-
+        internal int BallId { get; set; }
+        internal string BallColour { get; set; }
+        internal bool BallPotted { get; set; }
         public Ball()
         {
-
+            
         }
-        public Ball(int ballId, char ballPotted)
+        public Ball(int ballId)
+        {
+            this.BallId = ballId;
+        }
+        public Ball(int ballId, bool ballPotted)
         {
             this.BallId = ballId;
             this.BallColour = "White";
             this.BallPotted = ballPotted;
         }
 
-        public Ball(int ballId, string ballColour, char ballPotted)
+        public Ball(int ballId, string ballColour, bool ballPotted)
         {
             this.BallId = ballId;
             this.BallColour = ballColour;
             this.BallPotted= ballPotted;
         }
 
-        public int GetBallId(char ballPotted)
+        public bool IsBallPotted(List<Ball> balls, int ballId)
         {
-            if(ballPotted == 'n')
+            if (!balls[ballId - 1].BallPotted)
             {
-                return 15;
+                return false;
             }
             else
             {
-                Console.WriteLine("Enter the number of the ball potted ");
-                int ballId = Convert.ToInt32(Console.ReadLine());
-                return ballId;
+                return true;
             }
         }
 
-        public static void ShotMissed(List<Player> player, Ball ballId, int activePlayerIndex)
+        public void VanillaBallPotted(List<Player> players, List<Ball> balls, Ball ball, Game game, int ballId, int playerIndex)
         {
-            player[activePlayerIndex].PlayerLives--;
-            player[activePlayerIndex].PlayerTurn = false;
-            player[activePlayerIndex + 1].PlayerTurn = true;
+            players[playerIndex].NumberOfBallsToPot--;
         }
-
-        public static void VanillaBallPotted(List<Player> player, Ball ballId, char ballPotted, int activePlayerIndex)
+        public void OneBallPotted(List<Player> players, List<Ball> balls, Ball ball, Game game, int ballId, int playerIndex)
         {
 
-            if (ballPotted == 'n')
-            {
-                ShotMissed(player, ballId, activePlayerIndex - 1);
-            }
-            else
-            {
-                player[activePlayerIndex - 1].PlayerTurn = false;
-                player[activePlayerIndex].PlayerTurn = true;
-            }
-
+             ballToBeRemoved : Console.WriteLine("Please enter ball to be removed");
+             int ballToBeRemoved = Convert.ToInt32(Console.ReadLine()) - 1;
+             if(ballToBeRemoved  < 1 || ballToBeRemoved > 15)
+             {
+                 Console.WriteLine("Please enter a valid ballId");
+                 goto ballToBeRemoved;
+             }
+             else if(ball.IsBallPotted(balls, ballToBeRemoved))
+             {
+                 goto ballToBeRemoved;
+             }
+             else
+             {
+                 balls[ballToBeRemoved - 1].BallPotted = true;
+             }
+             players[playerIndex].NumberOfBallsToPot--;
         }
-        public static void OneBallPotted(List<Player> player, Ball ballId, char ballPotted, int activePlayerIndex)
+        public void TwoBallPotted(List<Player> players, List<Ball> balls, Ball ball, Game game, int ballId, int playerIndex)
+        {
+            players[playerIndex].NumberOfBallsToPot--;
+        }
+        public void EightBallPotted(List<Player> players, List<Ball> balls, Ball ball, Game game, int ballId, int playerIndex)
         {
 
-            if (ballPotted == 'n')
-            {
-                ShotMissed(player, ballId, activePlayerIndex - 1);
-            }
-            else
-            {
-                player[activePlayerIndex - 1].PlayerTurn = false;
-                player[activePlayerIndex].PlayerTurn = true;
-            }
-
+            players.Reverse();
+            players[playerIndex].NumberOfBallsToPot--;
         }
-        public static void EightBallPotted(List<Player> player, Ball ballId, char ballPotted, int activePlayerIndex)
+        public void NineBallPotted(List<Player> players, List<Ball> balls, Ball ball, Game game, int ballId, int playerIndex)
         {
-
-            if (ballPotted == 'n')
-            {
-                ShotMissed(player, ballId, activePlayerIndex - 1);
-            }
-            else
-            {
-                player[activePlayerIndex - 1].PlayerTurn = false;
-                player.Reverse();
-                player[activePlayerIndex].PlayerTurn = true;
-            }
-            
-
-        }
-        public static void NineBallPotted(List<Player> player, Ball ballId, char ballPotted, int activePlayerIndex)
-        { 
-            if (ballPotted == 'n')
-            {
-                ShotMissed(player, ballId, activePlayerIndex - 1);
-            }
-            else
-            {
-                player[activePlayerIndex - 1].PlayerTurn = false;
-                player[(activePlayerIndex + 1)].PlayerTurn = true;
-            }
-            
+            players[playerIndex].NumberOfBallsToPot--;
         }
     }
 }
